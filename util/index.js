@@ -20,7 +20,7 @@ let run = async () => {
       console.log("con", con);
 
       let rv = await client.exec().create(con.Id, {
-        "AttachStdin": false,
+        "AttachStdin": true,
         "AttachStdout": true,
         "AttachStderr": true,
         "DetachKeys": "ctrl-p,ctrl-q",
@@ -28,7 +28,8 @@ let run = async () => {
         "Cmd": [
           "bash",
           "-c",
-          "echo aa=1 > ~/aa.txt"
+          // "echo aa=1 > ~/aa.txt"
+          "ping 1.1.1.1 -c 10"
         ],
         "Env": [
           "FOO=bar",
@@ -40,12 +41,9 @@ let run = async () => {
 
 
       let rv_start = await client.exec().start(rv.Id, {
-        "Detach": false,
-        "Tty": false,
-        "ConsoleSize": [
-        80,
-        64
-        ]
+        "Detach": true,
+        "Tty": true,
+        "ConsoleSize": [ 80, 64 ]
       })
 
       console.log(rv_start)
